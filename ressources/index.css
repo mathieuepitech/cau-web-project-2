@@ -1,0 +1,110 @@
+body, html {
+    height: 100%;
+}
+
+.button-input {
+    position: relative;
+    color: white;
+    font-size: 40px;
+    display: inline-block;
+    width: 33.333333333333333%;
+    text-align: center;
+    height: 25%;
+}
+
+.buttons-operators .button-input {
+    width: 100%;
+    height: 20%;
+}
+
+.button-input span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.parenthesis {
+    width: 100%;
+    height: 20%;
+}
+
+.parenthesis .button-input {
+    width: 50%;
+    height: 100%;
+}
+
+.button-input.parenthesis div {
+    display: inline-block;
+    width: 50%;
+    position: relative;
+    height: 100%;
+    font-size: 40px;
+}
+
+.container {
+    height: 100%;
+    background: #1F1F1F;
+    width: 100%;
+}
+
+.buttons-container {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    font-size: 0;
+    width: 100%;
+    height: 60%;
+    line-height: 0;
+}
+
+.buttons-numbers {
+    display: inline-block;
+    width: 75%;
+    height: 100%;
+    background: #000;
+    vertical-align: top;
+}
+
+.buttons-operators {
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    background: #232323;
+}
+
+
+
+/* Affichage */
+
+.display-container {
+    height: 40%;
+    top: 0;
+    position: absolute;
+    padding: 20% 0;
+    width: 100%;
+}
+
+.display {
+    text-align: right;
+    color: white;
+    font-size: 70px;
+    position: absolute;
+    width: 94%;
+    left: 50%;
+    top: 50%;
+    overflow: auto;
+    transform: translate(-50%, -50%);
+}
+
+.display.big {
+    font-size: 60px;
+}
+
+.display.medium {
+    font-size: 50px;
+}
+
+.display.small {
+    font-size: 40px;
+}
