@@ -2,6 +2,10 @@ body, html {
     height: 100%;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .button-input {
     position: relative;
     color: white;
@@ -10,6 +14,7 @@ body, html {
     width: 33.333333333333333%;
     text-align: center;
     height: 25%;
+    cursor: pointer;
 }
 
 .buttons-operators .button-input {
@@ -46,6 +51,11 @@ body, html {
     height: 100%;
     background: #1F1F1F;
     width: 100%;
+    z-index: 0;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    display: block;
 }
 
 .buttons-container {
@@ -56,6 +66,7 @@ body, html {
     width: 100%;
     height: 60%;
     line-height: 0;
+    z-index: 0;
 }
 
 .buttons-numbers {
@@ -73,16 +84,12 @@ body, html {
     background: #232323;
 }
 
-
-
-/* Affichage */
-
 .display-container {
     height: 40%;
     top: 0;
     position: absolute;
-    padding: 20% 0;
     width: 100%;
+    z-index: 0;
 }
 
 .display {
@@ -94,7 +101,13 @@ body, html {
     left: 50%;
     top: 50%;
     overflow: auto;
+    line-height: initial;
     transform: translate(-50%, -50%);
+    -webkit-transition: font 0.3s ease;
+    -moz-transition: font 0.3s ease;
+    -o-transition: font 0.3s ease;
+    -ms-transition: font 0.3s ease;
+    transition: font 0.3s ease;
 }
 
 .display.big {
@@ -107,4 +120,193 @@ body, html {
 
 .display.small {
     font-size: 40px;
+}
+
+.clears-buttons-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    height: 60px;
+    width: 130px;
+    display: block;
+    font-size: 0;
+    line-height: 0;
+}
+
+.clears-buttons-container div, .expand-buttons div {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: top;
+    background: #424242;
+    font-size: 16px;
+    line-height: 60px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    opacity: 0;
+    cursor: pointer;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.clears-buttons-container.show div {
+    opacity: 1;
+}
+
+#sup {
+    margin-right: 10px;
+}
+
+.expand-buttons {
+    position: absolute;
+    top: calc( 40% - 40px );
+    left: 50%;
+    transform: translateX( -50% );
+    width: 35px;
+    height: 35px;
+    z-index: 2;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.expand-buttons svg {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.container.history .expand-buttons {
+    top: calc( 100% - 40px );
+}
+
+.container.history .expand-buttons svg {
+    transform: rotate( 180deg );
+}
+
+.main-history {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #1F1F1F;
+    z-index: 1;
+    top: -100%;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.container.history .main-history {
+    top: 0;
+}
+
+.day-container {
+    color: white;
+    border-bottom: 1px solid rgba(97,97,97,0.5);
+    padding: 10px;
+    line-height: initial;
+}
+
+.day-container:last-child {
+    border-bottom: none;
+}
+
+.day-container .title {
+    color: #ffc107;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.day-container .calcul-container {
+    text-align: right;
+    padding: 3px 0;
+    font-size: 25px;
+    color: white;
+    font-family: sans-serif;
+}
+
+.day-container .calcul-container .operation {
+    overflow: auto;
+}
+
+.day-container .calcul-container .result {
+    color: #9e9e9e;
+}
+
+.delete-history-container {
+    background: black;
+    height: 40px;
+    width: 100%;
+    font-size: 17px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+}
+
+.delete-history-container span {
+    font-size: 28px;
+}
+
+.delete-history-container #delete-history {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    line-height: 40px;
+    color: #9e9e9e;
+    cursor: pointer;
+}
+
+.history-container {
+    height: calc( 100% - 40px );
+    overflow: auto;
+}
+
+@media screen and ( min-width: 1020px ) {
+
+    .calculator-container {
+        display: inline-block;
+        height: 100%;
+        width: 60%;
+        line-height: 0;
+        position: absolute;
+        font-size: 0;
+    }
+
+    .main-history {
+        display: inline-block;
+        position: relative;
+        width: 40%;
+        top: 0;
+        line-height: 0;
+        height: 100%;
+        vertical-align: top;
+        font-size: 0;
+    }
+
+    .history-container {
+        background-color: #161616;
+    }
+
+    .expand-buttons {
+        display: none;
+    }
+
+    .container {
+        overflow: hidden;
+    }
+
 }
