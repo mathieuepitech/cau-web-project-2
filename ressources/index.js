@@ -8,14 +8,7 @@ let operators = [
 let operation = "";
 let operations = [];
 
-if ( localStorage.getItem( "operations" ) ) {
-    operations = JSON.parse( localStorage.getItem( "operations" ) );
-    setTimeout( () => insertHistory(), 10 );
-}
-
 function calculate() {
-    let $display = $( ".display" );
-
     try {
         let result = eval( operation );
 
@@ -24,13 +17,12 @@ function calculate() {
             result,
             date: new Date().getTime()
         } );
-        $display.text( result );
         operation = result.toString();
-        setFontSize( $display );
         localStorage.setItem( "operations", JSON.stringify( operations ) );
+        display();
         insertHistory();
     } catch (e) {
-
+        $( ".display-container" ).addClass( "error" );
     }
 }
 
@@ -105,7 +97,7 @@ function insertHistory() {
                 } else if ( diff === 1 ) {
                     daysAgo = "Yesterday";
                 } else {
-                    daysAgo = diff + "days ago";
+                    daysAgo = diff + " days ago";
                 }
                 $html.prepend(`
                 <div class="day-container" data-day="${ date.toDateString() }">
@@ -120,13 +112,25 @@ function insertHistory() {
 
         historyContainer.html( $html.html() );
         historyContainer.animate( { scrollTop: historyContainer[0].scrollHeight }, 300 );
-        // historyContainer.scrollTop( historyContainer[0].scrollHeight );
     } else {
         historyContainer.empty();
     }
 }
 
-$( document ).on( "click", "#ac", function () {
+function supp() {
+    if ( operation.length > 0 ) {
+        let $display = $( ".display" );
+
+        operation = operation.slice( 0, -1 );
+        $display.text( operation );
+        $display.scrollLeft( 1000 );
+
+        setFontSize( $display );
+        $( ".display-container" ).removeClass( "error" );
+    }
+}
+
+function ac() {
     if ( operation.length > 0 ) {
         let $display = $( ".display" );
 
@@ -136,61 +140,18 @@ $( document ).on( "click", "#ac", function () {
 
         setFontSize( $display );
     }
-} );
+    $( ".display-container" ).removeClass( "error" );
+}
 
-$( document ).on( "click", "#sup", function () {
-    if ( operation.length > 0 ) {
-        let $display = $( ".display" );
-
-        operation = operation.slice( 0, -1 );
-        $display.text( operation );
-        $display.scrollLeft( 1000 );
-
-        setFontSize( $display );
-    }
-} );
-
-$( document ).on( "keypress", "#main-input", function ( e ) {
-    let char = e.charCode;
-    let $this = $( this );
-
-    if ( char === 13 ) {
-        calculate( $this.val() );
-    } else if ( operators.indexOf( String.fromCharCode( char ) ) >= 0 ) {
-        // Operators
-        if ( operators.indexOf( $this.val().split("").pop() ) >= 0 ) {
-            e.preventDefault();
-        }
-    } else if ( ( char >= 48 && char <= 57 ) || char === 40 || char === 41 ) {
-        // Number
-    } else {
-        e.preventDefault();
-    }
-} );
-
-$( document ).on( "click", ".button-input", function () {
-    let $elem = $( this );
-    let input = $elem.find( "span" ).html();
+function display() {
     let $display = $( ".display" );
 
-    if ( input === "=" ) {
-        calculate();
-    } else {
-        operation += $elem.find( "span" ).html();
-        $display.text( operation );
-        $display.scrollLeft( 1000 );
+    $display.text( operation );
+    $display.scrollLeft( 1000 );
 
-        setFontSize( $display );
-    }
-} );
-
-$( document ).on( "click", ".expand-buttons", () => $( ".container" ).toggleClass( "history" ) );
-
-$( document ).on( "click", "#delete-history", function () {
-    operations = [];
-    localStorage.setItem( "operations", JSON.stringify( operations ) );
-    insertHistory();
-} );
+    setFontSize( $display );
+    $( ".display-container" ).removeClass( "error" );
+}
 
 function swipedetect( el, callback ) {
 
@@ -241,6 +202,58 @@ function swipedetect( el, callback ) {
 }
 
 $( window ).on( "load", function () {
+
+    if ( localStorage.getItem( "operations" ) ) {
+        operations = JSON.parse( localStorage.getItem( "operations" ) );
+        insertHistory();
+    }
+
+    $( document ).on( "click", "#ac", ac );
+
+    $( document ).on( "click", "#sup", supp );
+
+    $( document ).on( "click", ".button-input", function () {
+        let $elem = $( this );
+        let input = $elem.find( "span" ).html();
+
+        if ( input === "=" ) {
+            calculate();
+        } else {
+            operation += $elem.find( "span" ).html();
+            display();
+        }
+    } );
+
+    $( document ).on( "click", ".expand-buttons", () => $( ".container" ).toggleClass( "history" ) );
+
+    $( document ).on( "click", "#delete-history", function () {
+        operations = [];
+        localStorage.setItem( "operations", JSON.stringify( operations ) );
+        insertHistory();
+    } );
+
+    $( window ).on( "keypress", function ( e ) {
+        e.preventDefault();
+        let char = e.charCode;
+
+        console.log( char, String.fromCharCode( char ) );
+        if ( char === 13 ) {
+            calculate();
+        } else if ( operators.indexOf( String.fromCharCode( char ) ) >= 0 ) {
+            // Operators authorized
+            operation += String.fromCharCode( char );
+        } else if ( char >= 48 && char <= 57 ) {
+            // Number authorized
+            operation += String.fromCharCode( char );
+        } else if ( char === 115 || char === 83 ) {
+            // Sup
+            supp()
+        } else if ( char === 97 || char === 65 ) {
+            // AC
+            ac()
+        }
+        display();
+    } );
 
     swipedetect( document.getElementsByClassName( "display-container" )[0], function ( dir ) {
         if ( dir === "down" ) {

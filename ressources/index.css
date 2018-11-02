@@ -111,8 +111,9 @@ body, html {
     transition: font 0.3s ease;
 }
 
-.display.error {
-    color: #c62828;
+.error .display {
+    color: #d00506;
+    font-weight: 600;
 }
 
 .display.big {
