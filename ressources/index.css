@@ -1,5 +1,6 @@
 body, html {
     height: 100%;
+    overscroll-behavior: contain;
 }
 
 * {
@@ -108,6 +109,10 @@ body, html {
     -o-transition: font 0.3s ease;
     -ms-transition: font 0.3s ease;
     transition: font 0.3s ease;
+}
+
+.display.error {
+    color: #c62828;
 }
 
 .display.big {
