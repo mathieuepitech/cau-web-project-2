@@ -232,7 +232,8 @@ $( window ).on( "load", function () {
         insertHistory();
     } );
 
-    $( window ).on( "keypress", function ( e ) {
+    $( document ).on( "keypress", function ( e ) {
+        console.log( e );
         e.preventDefault();
         let char = e.charCode;
 
@@ -268,5 +269,13 @@ $( window ).on( "load", function () {
             $( ".container" ).removeClass( "history" );
         }
     } )
+
+    if ( location.hostname === "sanchez-mathieu.fr" ) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-74712385-7');
+    }
 
 } );
