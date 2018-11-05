@@ -268,7 +268,7 @@ $( window ).on( "load", function () {
         if ( dir === "up" && ( ( historyContainer[0].scrollTop + historyContainer[0].offsetHeight ) === historyContainer[0].scrollHeight ) ) {
             $( ".container" ).removeClass( "history" );
         }
-    } )
+    } );
 
     if ( location.hostname === "sanchez-mathieu.fr" ) {
         window.dataLayer = window.dataLayer || [];
