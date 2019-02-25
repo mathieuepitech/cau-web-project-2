@@ -10,4 +10,4 @@ Write an interative calculator program providing the following features using HT
 
 Submit the report including requirements, design, execution results and references.
 
-For try it, click [here](https://calculator.sanchez-mathieu.fr/)
+For try it, click [here](https://calculator.sanchezm.fr/)

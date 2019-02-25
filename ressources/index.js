@@ -270,7 +270,7 @@ $( window ).on( "load", function () {
         }
     } );
 
-    if ( location.hostname === "sanchez-mathieu.fr" ) {
+    if ( location.hostname === "sanchezm.fr" ) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
